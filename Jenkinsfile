@@ -1,38 +1,38 @@
 pipeline {
-    agent any
-    
-    triggers {
-        pollSCM('* * * * *')
+  agent any
+  stages {
+    stage('Descargar Código') {
+      steps {
+        echo '📥 Descargando código desde GitHub...'
+        checkout scm
+      }
     }
-    
-    stages {
-        stage('Descargar Código') {
-            steps {
-                echo '📥 Descargando código desde GitHub...'
-                checkout scm
-            }
-        }
-        
-        stage('Ejecutar Pruebas') {
-            steps {
-                echo '🧪 Ejecutando pruebas...'
-                bat 'npm test'
-            }
-        }
-        
-        stage('Resultado') {
-            steps {
-                echo '✅ Todo salió bien!'
-            }
-        }
+
+    stage('Ejecutar Pruebas') {
+      steps {
+        echo '🧪 Ejecutando pruebas...'
+        bat 'npm test'
+      }
     }
-    
-    post {
-        success {
-            echo '🎉 ¡Éxito! El código está perfecto'
-        }
-        failure {
-            echo '❌ Error: Algo salió mal'
-        }
+
+    stage('Resultado') {
+      steps {
+        echo '✅ Todo salió bien!'
+      }
     }
+
+  }
+  post {
+    success {
+      echo '🎉 ¡Éxito! El código está perfecto'
+    }
+
+    failure {
+      echo '❌ Error: Algo salió mal'
+    }
+
+  }
+  triggers {
+    pollSCM('* * * * *')
+  }
 }
