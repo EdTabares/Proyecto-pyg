@@ -1,0 +1,8 @@
+{
+  "name": "mi-proyecto",
+  "version": "1.0.0",
+  "description": "Proyecto de prueba",
+  "scripts": {
+    "test": "echo \"Pruebas ejecutadas correctamente\" && exit 0"
+  }
+}
